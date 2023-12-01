@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44882b3f-bf13-4632-ac62-f0da7a5a5f55" name="Changes" comment="Initial">
+    <list default="true" id="44882b3f-bf13-4632-ac62-f0da7a5a5f55" name="Changes" comment="12/1/23 Gaussian Blur Works, Edge Detection still required.&#10;Need to Figure out how to generalize &#10;(File Location, instead of using my own).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EdgeDetection_CS_201.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EdgeDetection_CS_201.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +38,8 @@
     "last_opened_file_path": "C:/Users/shiny/IdeaProjects/EdgeDetection_CS_201",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
 }]]></component>
   <component name="RunManager">
@@ -68,7 +68,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699312667665</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="12/1/23 Gaussian Blur Works, Edge Detection still required.&#10;Need to Figure out how to generalize &#10;(File Location, instead of using my own).">
+      <option name="closed" value="true" />
+      <created>1701465067779</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701465067779</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -95,7 +103,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="12/1/23 Gaussian Blur Works, Edge Detection still required." />
     <MESSAGE value="Initial" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial" />
+    <MESSAGE value="12/1/23 Gaussian Blur Works, Edge Detection still required.&#10;Need to Figure out how to generalize &#10;(File Location, instead of using my own)." />
+    <option name="LAST_COMMIT_MESSAGE" value="12/1/23 Gaussian Blur Works, Edge Detection still required.&#10;Need to Figure out how to generalize &#10;(File Location, instead of using my own)." />
   </component>
 </project>
