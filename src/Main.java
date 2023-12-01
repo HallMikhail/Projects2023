@@ -1,3 +1,11 @@
+/*
+To Do : Add Sobel(), Suppression() and Hysteresis() methods
+Fix Output File (Readable in photo editor like GIMP), but left-clicking doesn't open it.
+
+Make Directory File, for General User and not my system.
+Add Methods to Classes for Better Readability
+*/
+
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -42,19 +50,12 @@ public class Main {
 
 
 
-            //System.out.println(System.getProperty("user.dir"));
+//System.out.println(System.getProperty("user.dir"));
 
         try {
         BuffInput = ImageIO.read(new File("C:\\Users\\shiny\\IdeaProjects\\EdgeDetection_CS_201\\out\\Images", "Road1.jpg"));
         } catch (IOException e) {
-        System.out.println("This is broken");
-        }
-
-
-        try {
-            BuffInput = ImageIO.read(new File("C:\\Users\\shiny\\IdeaProjects\\EdgeDetection_CS_201\\out\\Images", "Road1.jpg"));
-        } catch (IOException e) {
-            System.out.println("This is broken");
+        System.out.println("Error: Input Failed to Read");
         }
 
         //
@@ -63,15 +64,16 @@ public class Main {
             BW = GSArray(BuffInput);
             BlurBW = GaussianBlurGS(BW, radius, GaussFraction, GaussExponent);
             BuffOutput = GSImg(BlurBW);
-        }else{System.out.println("Buff Image is Null");}
+        }else{System.out.println("Error: Input Image is Null");}
 
         if(BuffOutput != null) {
-            try {
-                ImageIO.write(BuffOutput, ".jpg", new File("GaussianBlurredGrayScale"));
+            try { //Needs to be improved.
+                ImageIO.write(BuffOutput, "jpg", new File("GaussianBlurredGrayScale.jpg"));
+                System.out.println("Image was written to file.");
             } catch (Exception ex) {
-                System.out.println("The System ran into an Error.");
+                System.out.println("Error: Writing Output to File");
             }
-        }else{System.out.println("Something is broken lol");}
+        }else{System.out.println("Error: Writing Output is null");}
 
 
 
@@ -97,7 +99,7 @@ public class Main {
             }
         }
         return rgb;
-    } //Use this for outputting to Excel File.
+    } //Used this for outputting to Excel File.
 */
 
     //Grabs the [rr,gg,bb] value, encoded in each pixel.
