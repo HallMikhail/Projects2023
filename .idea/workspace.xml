@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44882b3f-bf13-4632-ac62-f0da7a5a5f55" name="Changes" comment="12/1/23 Gaussian Blur Works, Edge Detection still required.&#10;Need to Figure out how to generalize &#10;(File Location, instead of using my own).">
+      <change afterPath="$PROJECT_DIR$/src/GrayScale.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Sobel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
@@ -12,6 +14,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -76,7 +85,23 @@
       <option name="project" value="LOCAL" />
       <updated>1701465067779</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="12/1/23 Gaussian Blur Works, Edge Detection still required.&#10;Need to Figure out how to generalize &#10;(File Location, instead of using my own).">
+      <option name="closed" value="true" />
+      <created>1701466811148</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1701466811148</updated>
+    </task>
+    <task id="LOCAL-00004" summary="12/1/23 Gaussian Blur Works, Edge Detection still required.&#10;Need to Figure out how to generalize &#10;(File Location, instead of using my own).">
+      <option name="closed" value="true" />
+      <created>1701466926992</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701466926992</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

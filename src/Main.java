@@ -1,9 +1,8 @@
 /*
-To Do : Add Sobel(), Suppression() and Hysteresis() methods
-Fix Output File (Readable in photo editor like GIMP), but left-clicking doesn't open it.
-
-Make Directory File, for General User and not my system.
-Add Methods to Classes for Better Readability
+To Do :
+Define Good Defaults
+Create Better Comments
+Include multiple photos
 */
 
 import java.awt.image.BufferedImage;
@@ -12,21 +11,36 @@ import java.io.*;
 import java.lang.Math;
 
 public class Main {
+    final static int ThresholdStandardDeviation=1;
+    // Number of Standard Deviations, used to Calculate High Threshold
+    // Outliers(x) are values which exceed the table below
+    //SD = 1 : 68% < x
+    //SD = 2 : 95% < x
+    //SD = 3 : 99.5% < x
+    final static double LowThreshRatio=.2;
+    // Used to Calculate Low Threshold
+    // Low_Thresh = LowThreshRatio * High Threshold
     public static void main(String[] args) {
-
         //Inputs
-        double StandardDev=Math.sqrt(2); //To be input (Def sqrt(2) tho)
+        final double StandardDev=1.2; //Gaussian Standard Deviation, Default : sqrt(2)
 
-        int radius=7; // (Small value, Fastest Operations : Accurate locally, Less Accurate Globally)
+        final int radius=7; // (Small value, Fastest Operations : Accurate locally, Less Accurate Globally)
                       // (Middle value, Slower Operations: More Accurate locally, More Accurate Globally)
                       // (Large value, Slowest Operations : Less Accurate Locally, Accurate Globally)
+
+
+
+        //Adjusting ThresholdStandardDeviation,LowThreshRatio,StandardDev,radius will lead to different outputs.
+
+
+
         //Constants
 
         double GaussExponent = 2 * StandardDev * StandardDev;
         double GaussFraction = 1 / (Math.sqrt((2*Math.PI)) * StandardDev);
-
         int[][] BW;
         int[][] BlurBW;
+        int[][] EdgeArray;
         BufferedImage BuffInput = null;
         BufferedImage BuffOutput = null;
 
@@ -38,72 +52,43 @@ public class Main {
         // -> (Transformations)
         // GaussianBlur()
 
-        /* SobelH() ->         (TO BE IMPLEMENTED)
+        /* SobelH() ->
         // SobelV() ->
-        // Suppression( Magnitude() , Direction() )
+        // Suppression(Magnitude() , Direction() )
         // Hysteresis()
         */
 
         // -> Output
 
 
-
-
-
-//System.out.println(System.getProperty("user.dir"));
+        String File = "Road1.jpg";
+        String FileOutput = File.replace(".jpg","_EdgesOutput");
+        FileOutput = FileOutput+".jpg";
 
         try {
-        BuffInput = ImageIO.read(new File("C:\\Users\\shiny\\IdeaProjects\\EdgeDetection_CS_201\\out\\Images", "Road1.jpg"));
-        } catch (IOException e) {
-        System.out.println("Error: Input Failed to Read");
-        }
-
-        //
+        BuffInput = ImageIO.read(new File("./out/Images", File));
+        } catch (IOException e)
+        {System.out.println("Error: Input Failed to Read");}
 
         if(BuffInput != null){
-            BW = GSArray(BuffInput);
+            BW = GrayScale.ToArray(BuffInput);
             BlurBW = GaussianBlurGS(BW, radius, GaussFraction, GaussExponent);
-            BuffOutput = GSImg(BlurBW);
+            EdgeArray = Sobel.Sobel(BlurBW,ThresholdStandardDeviation,LowThreshRatio);
+            BuffOutput = GrayScale.ToImg(EdgeArray);
+
         }else{System.out.println("Error: Input Image is Null");}
 
         if(BuffOutput != null) {
             try { //Needs to be improved.
-                ImageIO.write(BuffOutput, "jpg", new File("GaussianBlurredGrayScale.jpg"));
+                ImageIO.write(BuffOutput, "jpg", new File("./out./Images",FileOutput));
                 System.out.println("Image was written to file.");
             } catch (Exception ex) {
                 System.out.println("Error: Writing Output to File");
             }
         }else{System.out.println("Error: Writing Output is null");}
-
-
-
-
-
-
-
-//        RGBArray(Buffimg);
     }
 
-    /*public static int[][][] RGBArray(BufferedImage img) {
-        int[][][] rgb = null;
-        int height = img.getHeight();
-        int width = img.getWidth();
 
-        if (height > 0 && width > 0) {
-            rgb = new int[height][width][3];
-
-            for (int row = 0; row < height; row++) {
-                for (int column = 0; column < width; column++) {
-                    rgb[row][column] = intRGB(img.getRGB(column, row));
-                }
-            }
-        }
-        return rgb;
-    } //Used this for outputting to Excel File.
-*/
-
-    //Grabs the [rr,gg,bb] value, encoded in each pixel.
-    //Used in Testing for Grayscale Conversions
     private static int[] intRGB(int bits) { //0xff Converts to Hexadecimal value (Base 16)
         int[] rgb = {(bits >> 16) & 0xff, (bits >> 8) & 0xff, bits & 0xff};
 
@@ -162,8 +147,8 @@ public class Main {
         //This is the only function that follows this.
 
         //Indexes Current pixel at 0, and takes the next (radius) Vertical pixels to calculate a new "normally distributed" value.
-        height =outBW.length;
-        width = outBW[0].length;
+        height = outBW.length;
+        width  = outBW[0].length;
         for (int r = radius; r < height - radius; r++) {
             for (int j = radius; j < width - radius; j++) {
                 double sum = 0;
@@ -180,43 +165,26 @@ public class Main {
         return outBW;
     }
 
-    public static int[][] GSArray(BufferedImage Buffimg) {
-        int[][] gs = null;
-        int height = Buffimg.getHeight();
-        int width = Buffimg.getWidth();
+/* public static int[][][] RGBArray(BufferedImage img) {
+        int[][][] rgb = null;
+        int height = img.getHeight();
+        int width = img.getWidth();
 
         if (height > 0 && width > 0) {
-            gs = new int[height][width];
+            rgb = new int[height][width][3];
 
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    int bits = Buffimg.getRGB(j, i);
-                    //Grayscale Approximation R(0.2989)+G(0.587)+B(0.114)
-                    //The weights model how the human eye perceives light information (Found from Psychological Testing)
-                    double GrayValue = Math.round((((bits >> 16) & 0xff)*0.299 + ((bits >> 8) & 0xff)*0.587 + (bits & 0xff))*0.114);
-                    gs[i][j] = (int) GrayValue;
+            for (int row = 0; row < height; row++) {
+                for (int column = 0; column < width; column++) {
+                    rgb[row][column] = intRGB(img.getRGB(column, row));
                 }
             }
         }
-        return gs;
-    }
+        return rgb;
+    } //Used this for outputting to Excel File.
+*/
 
-    public static BufferedImage GSImg(int[][] BlurBW) {
-        BufferedImage GrayScaleImg = null;
-        int height = BlurBW.length;
-        int width = BlurBW[0].length;
-
-        if (height > 0 && width > 0) {
-            GrayScaleImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    GrayScaleImg.setRGB(j, i, (BlurBW[i][j] << 16) | (BlurBW[i][j] << 8) | (BlurBW[i][j]));
-                }
-            }
-        }
-        return GrayScaleImg;
-    }
+    //Grabs the [rr,gg,bb] value, encoded in each pixel.
+    //Used in Testing for Grayscale Conversions
 }
 
 
